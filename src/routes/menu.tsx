@@ -26,8 +26,22 @@ export const Route = createFileRoute("/menu")({
   component: MenuPage,
 });
 
-const menuCategories = [
+/**
+ * Ako pridať fotku k položke:
+ * 1. Nahrajte obrázok do priečinka src/assets (napr. tiramisu.jpg)
+ * 2. Hore pridajte import: import tiramisu from "@/assets/tiramisu.jpg";
+ * 3. K položke doplňte: { name: "Tiramisu", price: "3,90 €", image: tiramisu }
+ * Položky bez fotky zobrazia jemnú ikonku kategórie.
+ */
+type MenuItem = { name: string; price: string; image?: string };
+
+const menuCategories: {
+  icon: typeof Cake;
+  title: string;
+  items: MenuItem[];
+}[] = [
   {
+
     icon: Cake,
     title: "Zákusky",
     items: [
