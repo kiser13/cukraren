@@ -134,15 +134,32 @@ function MenuPage() {
                 {category.items.map((item) => (
                   <li
                     key={item.name}
-                    className="flex items-baseline justify-between gap-4 border-b border-dashed border-border pb-3 last:border-0"
+                    className="flex items-center justify-between gap-4 border-b border-dashed border-border pb-3 last:border-0"
                   >
-                    <span className="font-medium text-foreground">{item.name}</span>
+                    <div className="flex min-w-0 items-center gap-4">
+                      {item.image ? (
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          loading="lazy"
+                          className="h-14 w-14 shrink-0 rounded-xl object-cover"
+                        />
+                      ) : (
+                        <div className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-caramel/10">
+                          <category.icon className="h-6 w-6 text-caramel/60" />
+                        </div>
+                      )}
+                      <span className="truncate font-medium text-foreground">
+                        {item.name}
+                      </span>
+                    </div>
                     <span className="shrink-0 font-display font-semibold text-caramel">
                       {item.price}
                     </span>
                   </li>
                 ))}
               </ul>
+
             </div>
           ))}
         </div>
