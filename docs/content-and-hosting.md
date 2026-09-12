@@ -8,6 +8,15 @@ The `ContentSource` contract in `src/content/source.ts` is the boundary for futu
 
 ## CMS migration
 
+The first CMS connection uses Sanity project `g9kcnac1` and dataset `production`. Copy `.env.example` to `.env.local` for local development. The project ID and dataset are public read configuration; do not add a Sanity write token to the website environment.
+
+The website currently looks for one published document with `_type == "siteContent"` containing:
+
+- `business`: `name`, `phone`, `email`, and `hours`
+- `locations`: an array of `name`, `address`, `phone`, `hours`, and `mapQuery`
+- `menuCategories`: an array with `key`, `title`, and `items`
+- each menu item: `name`, `price`, and optional Sanity `image`
+
 1. Create the CMS schemas for business information, locations, menu categories, menu items, page sections, SEO metadata, and images.
 2. Export the current values from `src/content/site-content.ts` into the CMS.
 3. Implement a CMS content source that returns the existing `SiteContent` shape.

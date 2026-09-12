@@ -7,6 +7,8 @@ import {
   type MenuCategory,
 } from "./site-content";
 
+export { business, locations, menuCategories } from "./site-content";
+
 export type SiteContent = {
   business: BusinessInfo;
   locations: Location[];
@@ -24,5 +26,14 @@ export const localContentSource: ContentSource = {
 };
 
 export function getContentSource(): ContentSource {
+  if (import.meta.env.VITE_SANITY_PROJECT_ID) {
+    return {
+      async getSiteContent() {
+        const { getSanitySiteContent, sanityFallbackContent } = await import("./sanity-source");
+        return (await getSanitySiteContent()) ?? sanityFallbackContent;
+      },
+    };
+  }
+
   return localContentSource;
 }

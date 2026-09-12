@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Cake, IceCream, Coffee, CupSoda, Sandwich } from "lucide-react";
 import menuImage from "@/assets/menu.jpg";
-import { menuCategories } from "@/content/site-content";
+import { getContentSource } from "@/content/source";
 
 export const Route = createFileRoute("/menu")({
+  loader: async () => getContentSource().getSiteContent(),
   head: () => ({
     meta: [
       { title: "Menu — Cukráreň Amando" },
@@ -36,6 +37,8 @@ const categoryIcons = {
 } as const;
 
 function MenuPage() {
+  const { menuCategories } = Route.useLoaderData();
+
   return (
     <main className="flex-1">
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
