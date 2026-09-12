@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Cake, Phone, MapPin, Clock } from "lucide-react";
+import { business, locations, phoneHref } from "@/lib/business";
 
 const footerLinks = [
   { to: "/", label: "Domov" },
@@ -17,13 +18,10 @@ export function Footer() {
           <div>
             <Link to="/" className="flex items-center gap-2 text-foreground">
               <Cake className="h-6 w-6 text-caramel" />
-              <span className="font-display text-xl font-semibold">
-                Cukráreň Amado
-              </span>
+              <span className="font-display text-xl font-semibold">Cukráreň Amando</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Cukráreň s vlastnou výrobou zákuskov a zmrzliny. Najlepšie zákusky
-              a zmrzlina v meste.
+              Cukráreň s vlastnou výrobou zákuskov a zmrzliny. Najlepšie zákusky a zmrzlina v meste.
             </p>
           </div>
 
@@ -47,24 +45,24 @@ export function Footer() {
             <ul className="mt-4 flex flex-col gap-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-3">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-caramel" />
-                <a href="tel:0908389536" className="hover:text-foreground">
-                  0908 389 536
+                <a href={phoneHref} className="hover:text-foreground">
+                  {business.phone}
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-caramel" />
-                <span>Topoľčianska 22, 851 05 Petržalka</span>
+                <span>{locations[0].address}</span>
               </li>
               <li className="flex items-start gap-3">
                 <Clock className="mt-0.5 h-4 w-4 shrink-0 text-caramel" />
-                <span>Otvorené denne od 10:00</span>
+                <span>{business.hours}</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Cukráreň Amado. Všetky práva vyhradené.
+          © {new Date().getFullYear()} Cukráreň Amando. Všetky práva vyhradené.
         </div>
       </div>
     </footer>

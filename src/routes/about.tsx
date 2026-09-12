@@ -5,17 +5,17 @@ import aboutImage from "@/assets/about.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "O nás — Cukráreň Amado" },
+      { title: "O nás — Cukráreň Amando" },
       {
         name: "description",
         content:
-          "Spoznajte Cukráreň Amado. Vlastná výroba zákuskov a zmrzliny, útulná atmosféra a štyri prevádzky v Bratislave a Pezinku.",
+          "Spoznajte Cukráreň Amando. Vlastná výroba zákuskov a zmrzliny, útulná atmosféra a štyri prevádzky v Bratislave a Pezinku.",
       },
-      { property: "og:title", content: "O nás — Cukráreň Amado" },
+          { property: "og:title", content: "O nás — Cukráreň Amando" },
       {
         property: "og:description",
         content:
-          "Spoznajte Cukráreň Amado. Vlastná výroba zákuskov a zmrzliny, útulná atmosféra a štyri prevádzky.",
+          "Spoznajte Cukráreň Amando. Vlastná výroba zákuskov a zmrzliny, útulná atmosféra a štyri prevádzky.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -47,20 +47,18 @@ function AboutPage() {
               O nás
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Cukráreň Amado je rodinné podnikateľské srdce, kde každý deň
-              pečieme a pripravujeme zákusky podľa vlastných receptúr. Našou
-              prioritou je čerstvosť, kvalitné suroviny a úsmev, ktorý k
-              dobrému dezertu neodmysliteľne patrí.
+              Cukráreň Amando je rodinné podnikateľské srdce, kde každý deň pečieme a pripravujeme
+              zákusky podľa vlastných receptúr. Našou prioritou je čerstvosť, kvalitné suroviny a
+              úsmev, ktorý k dobrému dezertu neodmysliteľne patrí.
             </p>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Okrem tradičných zákuskov a tort vyrábame aj domácu zmrzlinu,
-              ktorá si získala priazeň malých aj veľkých. Veríme, že každá
-              návšteva u nás má byť malým okamihom radosti.
+              Okrem tradičných zákuskov a tort vyrábame aj domácu zmrzlinu, ktorá si získala priazeň
+              malých aj veľkých. Veríme, že každá návšteva u nás má byť malým okamihom radosti.
             </p>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Dnes nájdete Amado v Bratislave-Petržalke a na troch miestach v
-              Pezinku — v centre, v OC Molo a pri TESCO. Každá prevádzka je
-              pripravená ponúknuť vám to najlepšie z nášho sortimentu.
+              Dnes nájdete Amado v Bratislave-Petržalke a na troch miestach v Pezinku — v centre, v
+              OC Molo a pri TESCO. Každá prevádzka je pripravená ponúknuť vám to najlepšie z nášho
+              sortimentu.
             </p>
           </div>
           <div className="relative">

@@ -2,19 +2,20 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Star, MapPin, Clock, ArrowRight, Cake, Coffee, IceCream } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero.jpg";
+import { business } from "@/lib/business";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Cukráreň Amado — Zákusky a zmrzlina v Bratislave a Pezinku" },
+      { title: "Cukráreň Amando — Zákusky a zmrzlina v Bratislave a Pezinku" },
       {
         name: "description",
         content:
-          "Cukráreň Amado ponúka vlastnú výrobu zákuskov a zmrzliny. Navštívte nás v Bratislave-Petržalke alebo v Pezinku. Dine-in, takeaway a donáška.",
+          "Cukráreň Amando ponúka vlastnú výrobu zákuskov a zmrzliny. Navštívte nás v Bratislave-Petržalke alebo v Pezinku. Dine-in, takeaway a donáška.",
       },
       {
         property: "og:title",
-        content: "Cukráreň Amado — Zákusky a zmrzlina v Bratislave a Pezinku",
+        content: "Cukráreň Amando — Zákusky a zmrzlina v Bratislave a Pezinku",
       },
       {
         property: "og:description",
@@ -69,32 +70,30 @@ function HomePage() {
               <span>4,3 / 5 · 157 hodnotení</span>
             </div>
             <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-foreground sm:text-5xl lg:text-6xl">
-              Cukráreň Amado
+              Cukráreň Amando
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
-              Najlepšie zákusky a zmrzlina v meste. Vlastná výroba, útulná
-              atmosféra a štyri prevádzky v Bratislave a Pezinku.
+              Najlepšie zákusky a zmrzlina v meste. Vlastná výroba, útulná atmosféra a štyri
+              prevádzky v Bratislave a Pezinku.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
                 <MapPin className="h-4 w-4 text-caramel" /> Bratislava & Pezinok
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <Clock className="h-4 w-4 text-caramel" /> Otvorené od 10:00
+                <Clock className="h-4 w-4 text-caramel" /> {business.hours}
               </span>
               <span>€1–10</span>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/menu">
-                <Button variant="accent" size="lg">
+              <Button asChild variant="accent" size="lg">
+                <Link to="/menu">
                   Pozrieť menu <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/locations">
-                <Button variant="outline" size="lg">
-                  Kde nás nájdete
-                </Button>
-              </Link>
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/locations">Kde nás nájdete</Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -107,8 +106,7 @@ function HomePage() {
             Prečo Amado?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            Spájame tradíciu cukrárskeho remesla s moderným prístupom a
-            príjemným prostredím.
+            Spájame tradíciu cukrárskeho remesla s moderným prístupom a príjemným prostredím.
           </p>
         </div>
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -136,24 +134,20 @@ function HomePage() {
             Príďte ochutnať
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-primary-foreground/90">
-            Čakajú na vás čerstvé zákusky, domáca zmrzlina a šálka výbornej
-            kávy. Tešíme sa na vás!
+            Čakajú na vás čerstvé zákusky, domáca zmrzlina a šálka výbornej kávy. Tešíme sa na vás!
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link to="/contact">
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
-              >
-                Napísať nám
-              </Button>
-            </Link>
-            <Link to="/locations">
-              <Button size="lg" className="bg-cream text-foreground hover:bg-cream/90">
-                Navštívte nás
-              </Button>
-            </Link>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+            >
+              <Link to="/contact">Napísať nám</Link>
+            </Button>
+            <Button asChild size="lg" className="bg-cream text-foreground hover:bg-cream/90">
+              <Link to="/locations">Navštívte nás</Link>
+            </Button>
           </div>
         </div>
       </section>

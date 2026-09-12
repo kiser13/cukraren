@@ -1,21 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, Phone, Clock, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { locations } from "@/lib/business";
 
 export const Route = createFileRoute("/locations")({
   head: () => ({
     meta: [
-      { title: "Prevádzky — Cukráreň Amado" },
+      { title: "Prevádzky — Cukráreň Amando" },
       {
         name: "description",
         content:
-          "Navštívte Cukráreň Amado v Bratislave-Petržalke alebo v Pezinku. OC Molo, centrum, TESCO a Topoľčianska ulica.",
+          "Navštívte Cukráreň Amando v Bratislave-Petržalke alebo v Pezinku. OC Molo, centrum, TESCO a Topoľčianska ulica.",
       },
-      { property: "og:title", content: "Prevádzky — Cukráreň Amado" },
+      { property: "og:title", content: "Prevádzky — Cukráreň Amando" },
       {
         property: "og:description",
         content:
-          "Navštívte Cukráreň Amado v Bratislave-Petržalke alebo v Pezinku. Štyri prevádzky, jedna chuť.",
+          "Navštívte Cukráreň Amando v Bratislave-Petržalke alebo v Pezinku. Štyri prevádzky, jedna chuť.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -23,37 +24,6 @@ export const Route = createFileRoute("/locations")({
   }),
   component: LocationsPage,
 });
-
-const locations = [
-  {
-    name: "AMADO Bratislava",
-    address: "Topoľčianska 22, 851 05 Bratislava-Petržalka",
-    phone: "0908 389 536",
-    hours: "Denne 10:00 – 20:00",
-    mapQuery: "Cukráreň Amado, Topoľčianska 22, Bratislava",
-  },
-  {
-    name: "AMADO OC Molo",
-    address: "Myšenička 2/C, Pezinok",
-    phone: "0908 389 536",
-    hours: "Denne 10:00 – 20:00",
-    mapQuery: "AMADO Cukráreň OC Molo, Myšenička 2/C, Pezinok",
-  },
-  {
-    name: "AMADO Centrum",
-    address: "Moyzesova 10, Pezinok",
-    phone: "0908 389 536",
-    hours: "Denne 10:00 – 20:00",
-    mapQuery: "AMADO Cukráreň, Moyzesova 10, Pezinok",
-  },
-  {
-    name: "AMADO TESCO",
-    address: "Myšenička 2/B, Pezinok",
-    phone: "0908 389 536",
-    hours: "Denne 10:00 – 20:00",
-    mapQuery: "AMADO Cukráreň TESCO, Myšenička 2/B, Pezinok",
-  },
-];
 
 function LocationsPage() {
   return (
@@ -64,8 +34,8 @@ function LocationsPage() {
             Naše prevádzky
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Nájdete nás v Bratislave-Petržalke a na troch miestach v Pezinku.
-            Každá prevádzka ponúka čerstvé zákusky a príjemné posedenie.
+            Nájdete nás v Bratislave-Petržalke a na troch miestach v Pezinku. Každá prevádzka ponúka
+            čerstvé zákusky a príjemné posedenie.
           </p>
         </div>
 
@@ -85,7 +55,10 @@ function LocationsPage() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="h-4 w-4 shrink-0 text-caramel" />
-                  <a href={`tel:${location.phone.replace(/\s/g, "")}`} className="hover:text-foreground">
+                  <a
+                    href={`tel:${location.phone.replace(/\s/g, "")}`}
+                    className="hover:text-foreground"
+                  >
                     {location.phone}
                   </a>
                 </li>
@@ -95,17 +68,17 @@ function LocationsPage() {
                 </li>
               </ul>
               <div className="mt-auto pt-6">
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    location.mapQuery
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="outline" className="w-full gap-2">
+                <Button asChild variant="outline" className="w-full gap-2">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      location.mapQuery,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <Navigation className="h-4 w-4" /> Navigovať
-                  </Button>
-                </a>
+                  </a>
+                </Button>
               </div>
             </div>
           ))}

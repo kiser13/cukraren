@@ -1,21 +1,22 @@
+import { useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { business, locations, phoneHref } from "@/lib/business";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Kontakt — Cukráreň Amado" },
+      { title: "Kontakt — Cukráreň Amando" },
       {
         name: "description",
         content:
-          "Kontaktujte Cukráreň Amado. Telefón, prevádzky v Bratislave a Pezinku, objednávky a rezervácie.",
+          "Kontaktujte Cukráreň Amando. Telefón, prevádzky v Bratislave a Pezinku, objednávky a rezervácie.",
       },
-      { property: "og:title", content: "Kontakt — Cukráreň Amado" },
+          { property: "og:title", content: "Kontakt — Cukráreň Amando" },
       {
         property: "og:description",
-        content:
-          "Kontaktujte Cukráreň Amado. Telefón, prevádzky a objednávky.",
+        content: "Kontaktujte Cukráreň Amando. Telefón, prevádzky a objednávky.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -25,6 +26,23 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const [isSent, setIsSent] = useState(false);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const subject = String(formData.get("subject") || "Správa z webu");
+    const body = [
+      `Meno: ${formData.get("name")}`,
+      `E-mail: ${formData.get("email")}`,
+      "",
+      String(formData.get("message")),
+    ].join("\n");
+
+    window.location.href = `mailto:${business.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setIsSent(true);
+  }
+
   return (
     <main className="flex-1">
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -33,8 +51,7 @@ function ContactPage() {
             Kontakt
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Máte otázku, objednávku alebo chcete rezervovať stôl? Ozvite sa nám —
-            radi vám pomôžeme.
+            Máte otázku, objednávku alebo chcete rezervovať stôl? Ozvite sa nám — radi vám pomôžeme.
           </p>
         </div>
 
@@ -51,10 +68,10 @@ function ContactPage() {
                 <div>
                   <p className="text-sm text-muted-foreground">Telefón</p>
                   <a
-                    href="tel:0908389536"
+                    href={phoneHref}
                     className="text-lg font-medium text-foreground hover:text-caramel"
                   >
-                    0908 389 536
+                    {business.phone}
                   </a>
                 </div>
               </li>
@@ -65,10 +82,10 @@ function ContactPage() {
                 <div>
                   <p className="text-sm text-muted-foreground">E-mail</p>
                   <a
-                    href="mailto:info@cukraren-amado.sk"
+                    href={`mailto:${business.email}`}
                     className="text-lg font-medium text-foreground hover:text-caramel"
                   >
-                    info@cukraren-amado.sk
+                    {business.email}
                   </a>
                 </div>
               </li>
@@ -78,9 +95,7 @@ function ContactPage() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Hlavná prevádzka</p>
-                  <p className="text-lg font-medium text-foreground">
-                    Topoľčianska 22, 851 05 Bratislava-Petržalka
-                  </p>
+                  <p className="text-lg font-medium text-foreground">{locations[0].address}</p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
@@ -89,19 +104,15 @@ function ContactPage() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Otváracie hodiny</p>
-                  <p className="text-lg font-medium text-foreground">
-                    Denne od 10:00
-                  </p>
+                  <p className="text-lg font-medium text-foreground">{business.hours}</p>
                 </div>
               </li>
             </ul>
           </div>
 
           <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
-            <h2 className="font-display text-2xl font-semibold text-foreground">
-              Napíšte nám
-            </h2>
-            <form className="mt-6 flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+            <h2 className="font-display text-2xl font-semibold text-foreground">Napíšte nám</h2>
+            <form className="mt-6 flex flex-col gap-4" onSubmit={handleSubmit}>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="name" className="text-sm font-medium text-foreground">
@@ -109,7 +120,9 @@ function ContactPage() {
                   </label>
                   <input
                     id="name"
+                    name="name"
                     type="text"
+                    required
                     placeholder="Vaše meno"
                     className="rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-caramel focus:ring-2 focus:ring-caramel/20"
                   />
@@ -120,7 +133,9 @@ function ContactPage() {
                   </label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
+                    required
                     placeholder="vas@email.sk"
                     className="rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-caramel focus:ring-2 focus:ring-caramel/20"
                   />
@@ -132,7 +147,9 @@ function ContactPage() {
                 </label>
                 <input
                   id="subject"
+                  name="subject"
                   type="text"
+                  required
                   placeholder="Objednávka / otázka"
                   className="rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-caramel focus:ring-2 focus:ring-caramel/20"
                 />
@@ -143,7 +160,9 @@ function ContactPage() {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   rows={5}
+                  required
                   placeholder="Čo by ste nám chceli povedať?"
                   className="rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-caramel focus:ring-2 focus:ring-caramel/20"
                 />
@@ -151,6 +170,11 @@ function ContactPage() {
               <Button type="submit" variant="accent" className="mt-2 w-full sm:w-auto">
                 Odoslať správu
               </Button>
+              {isSent && (
+                <p className="text-sm text-muted-foreground" role="status">
+                  Otváram váš e-mailový program s pripravenou správou.
+                </p>
+              )}
             </form>
           </div>
         </div>

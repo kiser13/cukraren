@@ -5,13 +5,13 @@ import menuImage from "@/assets/menu.jpg";
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
-      { title: "Menu — Cukráreň Amado" },
+      { title: "Menu — Cukráreň Amando" },
       {
         name: "description",
         content:
           "Ponuka Cukrárne Amado: čerstvé zákusky, domáca zmrzlina, káva, čaj a rýchle občerstvenie. Bratislava a Pezinok.",
       },
-      { property: "og:title", content: "Menu — Cukráreň Amado" },
+      { property: "og:title", content: "Menu — Cukráreň Amando" },
       {
         property: "og:description",
         content:
@@ -41,7 +41,6 @@ const menuCategories: {
   items: MenuItem[];
 }[] = [
   {
-
     icon: Cake,
     title: "Zákusky",
     items: [
@@ -111,8 +110,8 @@ function MenuPage() {
             Naše menu
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Čerstvé zákusky, domáca zmrzlina, výborná káva a ďalšie dobroty.
-            Ceny sú orientačné a môžu sa líšiť podľa prevádzky.
+            Čerstvé zákusky, domáca zmrzlina, výborná káva a ďalšie dobroty. Ceny sú orientačné a
+            môžu sa líšiť podľa prevádzky.
           </p>
         </div>
 
@@ -149,9 +148,7 @@ function MenuPage() {
                           <category.icon className="h-6 w-6 text-caramel/60" />
                         </div>
                       )}
-                      <span className="truncate font-medium text-foreground">
-                        {item.name}
-                      </span>
+                      <span className="truncate font-medium text-foreground">{item.name}</span>
                     </div>
                     <span className="shrink-0 font-display font-semibold text-caramel">
                       {item.price}
@@ -159,7 +156,6 @@ function MenuPage() {
                   </li>
                 ))}
               </ul>
-
             </div>
           ))}
         </div>

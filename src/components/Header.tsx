@@ -19,9 +19,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2 text-foreground">
           <Cake className="h-6 w-6 text-caramel" />
-          <span className="font-display text-xl font-semibold tracking-tight">
-            Cukráreň Amado
-          </span>
+          <span className="font-display text-xl font-semibold tracking-tight">Cukráreň Amando</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -46,9 +44,12 @@ export function Header() {
         </div>
 
         <button
+          type="button"
           className="inline-flex h-10 w-10 items-center justify-center rounded-md md:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Zavrieť menu" : "Otvoriť menu"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
         >
           {isOpen ? (
             <X className="h-6 w-6 text-foreground" />
@@ -59,7 +60,7 @@ export function Header() {
       </div>
 
       {isOpen && (
-        <div className="border-t border-border bg-card px-4 py-4 md:hidden">
+        <div id="mobile-navigation" className="border-t border-border bg-card px-4 py-4 md:hidden">
           <nav className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <Link
