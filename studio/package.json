@@ -1,0 +1,15 @@
+{
+  "name": "cukraren-studio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "@sanity/vision": "latest",
+    "sanity": "latest",
+    "styled-components": "^6.5.3"
+  }
+}

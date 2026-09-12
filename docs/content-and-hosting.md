@@ -17,6 +17,34 @@ The website currently looks for one published document with `_type == "siteConte
 - `menuCategories`: an array with `key`, `title`, and `items`
 - each menu item: `name`, `price`, and optional Sanity `image`
 
+### Studio setup
+
+The client dashboard is in the `studio` directory.
+
+```bash
+cd studio
+bun install
+bun run dev
+```
+
+Open the local Studio URL shown by the command, sign in with the Sanity account that has access to project `g9kcnac1`, and create one document named `Website content`. Enter the current business details, locations, menu categories, menu items, prices, and images, then publish it.
+
+After publishing the document, set these variables in the website deployment environment and redeploy:
+
+```text
+VITE_SANITY_PROJECT_ID=g9kcnac1
+VITE_SANITY_DATASET=production
+```
+
+To host the client dashboard on Sanity, run:
+
+```bash
+cd studio
+bun run deploy
+```
+
+The deploy command requires an authenticated Sanity account. Give the client access through Sanity project members rather than sharing credentials.
+
 1. Create the CMS schemas for business information, locations, menu categories, menu items, page sections, SEO metadata, and images.
 2. Export the current values from `src/content/site-content.ts` into the CMS.
 3. Implement a CMS content source that returns the existing `SiteContent` shape.
