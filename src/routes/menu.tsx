@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Cake, IceCream, Coffee, CupSoda, Sandwich } from "lucide-react";
 import menuImage from "@/assets/menu.jpg";
+import { menuCategories } from "@/content/site-content";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
@@ -26,80 +27,13 @@ export const Route = createFileRoute("/menu")({
   component: MenuPage,
 });
 
-/**
- * Ako pridať fotku k položke:
- * 1. Nahrajte obrázok do priečinka src/assets (napr. tiramisu.jpg)
- * 2. Hore pridajte import: import tiramisu from "@/assets/tiramisu.jpg";
- * 3. K položke doplňte: { name: "Tiramisu", price: "3,90 €", image: tiramisu }
- * Položky bez fotky zobrazia jemnú ikonku kategórie.
- */
-type MenuItem = { name: string; price: string; image?: string };
-
-const menuCategories: {
-  icon: typeof Cake;
-  title: string;
-  items: MenuItem[];
-}[] = [
-  {
-    icon: Cake,
-    title: "Zákusky",
-    items: [
-      { name: "Tiramisu", price: "3,90 €" },
-      { name: "Sacher torta", price: "4,20 €" },
-      { name: "Ovocný rez", price: "3,50 €" },
-      { name: "Panna cotta", price: "3,80 €" },
-      { name: "Laskonka", price: "2,90 €" },
-      { name: "Profiterolky", price: "4,50 €" },
-    ],
-  },
-  {
-    icon: IceCream,
-    title: "Zmrzlina",
-    items: [
-      { name: "Vanilková", price: "2,20 €" },
-      { name: "Čokoládová", price: "2,20 €" },
-      { name: "Jahodová", price: "2,20 €" },
-      { name: "Pistáciová", price: "2,50 €" },
-      { name: "Mix 2 príchute", price: "3,20 €" },
-      { name: "Zmrzlinový pohár", price: "4,90 €" },
-    ],
-  },
-  {
-    icon: Coffee,
-    title: "Káva",
-    items: [
-      { name: "Espresso", price: "2,00 €" },
-      { name: "Double espresso", price: "2,40 €" },
-      { name: "Cappuccino", price: "2,60 €" },
-      { name: "Latte macchiato", price: "2,90 €" },
-      { name: "Flat white", price: "2,80 €" },
-      { name: "Iced coffee", price: "3,20 €" },
-    ],
-  },
-  {
-    icon: CupSoda,
-    title: "Čaj a nápoje",
-    items: [
-      { name: "Čierny čaj", price: "2,00 €" },
-      { name: "Zelený čaj", price: "2,00 €" },
-      { name: "Bylinkový čaj", price: "2,20 €" },
-      { name: "Čaj ovocný", price: "2,20 €" },
-      { name: "Limonáda", price: "2,80 €" },
-      { name: "Voda", price: "1,50 €" },
-    ],
-  },
-  {
-    icon: Sandwich,
-    title: "Rýchle občerstvenie",
-    items: [
-      { name: "Croissant", price: "2,10 €" },
-      { name: "Slaný koláč", price: "2,80 €" },
-      { name: "Bageta", price: "4,50 €" },
-      { name: "Muffin", price: "2,40 €" },
-      { name: "Chlebík s nátierkou", price: "3,20 €" },
-    ],
-  },
-];
+const categoryIcons = {
+  cakes: Cake,
+  iceCream: IceCream,
+  coffee: Coffee,
+  drinks: CupSoda,
+  snacks: Sandwich,
+} as const;
 
 function MenuPage() {
   return (
@@ -116,48 +50,51 @@ function MenuPage() {
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-2">
-          {menuCategories.map((category) => (
-            <div
-              key={category.title}
-              className="rounded-3xl border border-border bg-card p-8 shadow-sm"
-            >
-              <div className="flex items-center gap-3">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-caramel/10">
-                  <category.icon className="h-5 w-5 text-caramel" />
+          {menuCategories.map((category) => {
+            const CategoryIcon = categoryIcons[category.key];
+            return (
+              <div
+                key={category.title}
+                className="rounded-3xl border border-border bg-card p-8 shadow-sm"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-caramel/10">
+                    <CategoryIcon className="h-5 w-5 text-caramel" />
+                  </div>
+                  <h2 className="font-display text-2xl font-semibold text-foreground">
+                    {category.title}
+                  </h2>
                 </div>
-                <h2 className="font-display text-2xl font-semibold text-foreground">
-                  {category.title}
-                </h2>
+                <ul className="mt-6 space-y-4">
+                  {category.items.map((item) => (
+                    <li
+                      key={item.name}
+                      className="flex items-center justify-between gap-4 border-b border-dashed border-border pb-3 last:border-0"
+                    >
+                      <div className="flex min-w-0 items-center gap-4">
+                        {item.image ? (
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            loading="lazy"
+                            className="h-14 w-14 shrink-0 rounded-xl object-cover"
+                          />
+                        ) : (
+                          <div className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-caramel/10">
+                            <CategoryIcon className="h-6 w-6 text-caramel/60" />
+                          </div>
+                        )}
+                        <span className="truncate font-medium text-foreground">{item.name}</span>
+                      </div>
+                      <span className="shrink-0 font-display font-semibold text-caramel">
+                        {item.price}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="mt-6 space-y-4">
-                {category.items.map((item) => (
-                  <li
-                    key={item.name}
-                    className="flex items-center justify-between gap-4 border-b border-dashed border-border pb-3 last:border-0"
-                  >
-                    <div className="flex min-w-0 items-center gap-4">
-                      {item.image ? (
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          loading="lazy"
-                          className="h-14 w-14 shrink-0 rounded-xl object-cover"
-                        />
-                      ) : (
-                        <div className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-caramel/10">
-                          <category.icon className="h-6 w-6 text-caramel/60" />
-                        </div>
-                      )}
-                      <span className="truncate font-medium text-foreground">{item.name}</span>
-                    </div>
-                    <span className="shrink-0 font-display font-semibold text-caramel">
-                      {item.price}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-12 rounded-2xl bg-muted p-6 text-center text-sm text-muted-foreground">
